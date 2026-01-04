@@ -1,6 +1,6 @@
 package ladysnake.impaled.common.item;
 
-import ladysnake.impaled.common.damage.HellforkHeatDamageSource;
+import ladysnake.impaled.common.damage.ImpaledDamageSources;
 import ladysnake.impaled.common.entity.ImpaledTridentEntity;
 import ladysnake.impaled.common.init.ImpaledItems;
 import net.minecraft.block.BlockState;
@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -43,7 +44,8 @@ public class HellforkItem extends ImpaledTridentItem {
 
         if (user instanceof PlayerEntity player && user.isUsingRiptide() && stack.getItem() == ImpaledItems.SOULFORK) {
             if (player.experienceLevel <= 0) {
-                user.damage(HellforkHeatDamageSource.HELLFORK_HEAT, 2f);
+                ImpaledDamageSources sources = new ImpaledDamageSources(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE));
+                user.damage(sources.hellforkHeat(), 2f);
                 user.playSound(SoundEvents.ENTITY_PLAYER_HURT, 1.0f, 1.0f);
             } else {
                 player.addExperienceLevels(-1);

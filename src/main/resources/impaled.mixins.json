@@ -17,7 +17,10 @@
     "impaling.ImpalingEnchantmentMixin",
     "impaling.MobEntityMixin",
     "impaling.PlayerEntityMixin",
-    "impaling.TridentEntityMixin"
+    "impaling.TridentEntityMixin",
+    "homing.MinecraftClientMixin",
+    "homing.ServerPlayerEntityMixin",
+    "homing.ClientPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
