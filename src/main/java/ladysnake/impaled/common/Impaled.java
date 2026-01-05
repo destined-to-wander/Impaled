@@ -1,5 +1,6 @@
 package ladysnake.impaled.common;
 
+import ladysnake.impaled.common.damage.ImpaledDamageSources;
 import ladysnake.impaled.common.entity.IPlayerTargeting;
 import ladysnake.impaled.common.init.ImpaledEntityTypes;
 import ladysnake.impaled.common.init.ImpaledItems;
@@ -8,11 +9,14 @@ import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
 public class Impaled implements ModInitializer {

@@ -1,11 +1,13 @@
 {
-  "type": "minecraft:smithing_transform",
-  "base": {
-    "item": "minecraft:trident"
-  },
-  "addition": {
-    "item": "minecraft:enchanted_golden_apple"
-  },
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:trident"
+    },
+    {
+      "item": "minecraft:enchanted_golden_apple"
+    }
+  ],
   "result": {
     "item": "impaled:atlan"
   }

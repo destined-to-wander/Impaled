@@ -42,10 +42,12 @@ public class HellforkItem extends ImpaledTridentItem {
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         super.onStoppedUsing(stack, world, user, remainingUseTicks);
 
-        if (user instanceof PlayerEntity player && user.isUsingRiptide() && stack.getItem() == ImpaledItems.SOULFORK) {
+        if (user instanceof PlayerEntity player && !player.isCreative() && user.isUsingRiptide() && stack.getItem() == ImpaledItems.SOULFORK) {
             if (player.experienceLevel <= 0) {
-                ImpaledDamageSources sources = new ImpaledDamageSources(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE));
-                user.damage(sources.hellforkHeat(), 2f);
+                if (!world.isClient()) {
+                    ImpaledDamageSources sources = new ImpaledDamageSources(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE));
+                    user.damage(sources.hellforkHeat(), 2f);
+                }
                 user.playSound(SoundEvents.ENTITY_PLAYER_HURT, 1.0f, 1.0f);
             } else {
                 player.addExperienceLevels(-1);
