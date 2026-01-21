@@ -1,12 +1,8 @@
 plugins {
-	id 'fabric-loom' version "1.5.+"
+	id 'fabric-loom' version "1.8-SNAPSHOT"
 	//id 'io.github.ladysnake.chenille' version '0.11.3'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
-
-archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
@@ -29,12 +25,36 @@ repositories {
 	}
 	maven {
 		url "https://jitpack.io"
-		content {
-			includeGroupByRegex "com\\.github\\..*"
-		}
 	}
-	// MialeeMisc
-	maven { url "https://maven.willbl.dev/releases" }
+
+	maven { url = "https://maven.uuid.gg/releases" }
+
+	maven {
+		name "reach entity attributes"
+		url "https://maven.jamieswhiteshirt.com/libs-release"
+	}
+
+	maven {
+		name "cardinal components"
+		url "https://maven.ladysnake.org/releases"
+	}
+	maven {
+		name "architectury"
+		url "https://maven.shedaniel.me"
+	}
+	maven {
+		name "geckolib"
+		url "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven"
+	}
+	maven {
+		name "mod menu"
+		url "https://maven.terraformersmc.com"
+	}
+	maven {
+		name "modrinth"
+		url "https://api.modrinth.com/maven"
+	}
+
 }
 
 dependencies {
@@ -46,12 +66,34 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	/*
-	modImplementation(name: 'MixinExtras-0.2.0-beta.4', ext: 'jar')
-	modImplementation("xyz.amymialee:mialeemisc:${project.mialeemisc_version}"){
-		transitive = false
-	}
+	// enchancement
+	modImplementation "maven.modrinth:enchancement:${enchancement_version}"
+
+	//* arsenal
+	modImplementation "dev.doctor4t:Arsenal:${arsenal_version}"
+	modImplementation "com.jamieswhiteshirt:reach-entity-attributes:${reach_entity_attributes_version}"
+	modImplementation "dev.upcraft.datasync:datasync-minecraft-1.20.1-fabric:0.6.1"
+	modImplementation "dev.doctor4t:ratatouille:${ratatouille_version}"
 	//*/
+
+	// enchancement dependencies
+	include modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}")
+	include modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}")
+	include modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-world:${cardinal_components_version}")
+	include modApi("maven.modrinth:midnightlib:${midnightlib_version}")
+	include modApi("com.github.emilyploszaj:step-height-entity-attribute:${step_height_entity_attribute_version}")
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+	modRuntimeOnly "maven.modrinth:tooltipfix:${tooltipfix_version}"
+	modCompileOnly("com.github.apace100:apoli:${apoli_version}") {
+		exclude(group: "*")
+	}
+	modCompileOnly "maven.modrinth:architectury-api:${architectury_version}+fabric"
+	modCompileOnly "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
+	modCompileOnly "maven.modrinth:sodium:${sodium_version}"
+	modRuntimeOnly "maven.modrinth:sodium:${sodium_version}"
+	implementation "org.joml:joml:1.10.4"
+	modCompileOnly "maven.modrinth:spectrum:${spectrum_version}"
+	modRuntimeOnly "com.terraformersmc:modmenu:${mod_menu_version}"
 }
 
 processResources {

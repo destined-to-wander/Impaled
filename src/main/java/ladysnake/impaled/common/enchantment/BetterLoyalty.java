@@ -2,11 +2,14 @@ package ladysnake.impaled.common.enchantment;
 
 import ladysnake.sincereloyalty.LoyalTrident;
 import ladysnake.sincereloyalty.TridentRecaller;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
+
+import static ladysnake.impaled.common.compat.ImpaledCompat.tryInsertIntoBackslot;
 
 public final class BetterLoyalty {
     public static boolean tryInsertTrident(ItemStack stack, PlayerEntity player) {
@@ -23,7 +26,12 @@ public final class BetterLoyalty {
             if (tag.contains(LoyalTrident.RETURN_SLOT_NBT_KEY)) {
                 int preferredSlot = tag.getInt(LoyalTrident.RETURN_SLOT_NBT_KEY);
                 tag.remove(LoyalTrident.RETURN_SLOT_NBT_KEY);
-                if (preferredSlot == -1) {
+                if (preferredSlot == -2){
+                    if (FabricLoader.getInstance().isModLoaded("arsenal") && tryInsertIntoBackslot(player, stack.copy())) {
+                        stack.setCount(0);
+                        return true;
+                    }
+                } else if (preferredSlot == -1) {
                     if (player.getOffHandStack().isEmpty()) {
                         player.equipStack(EquipmentSlot.OFFHAND, stack.copy());
                         stack.setCount(0);

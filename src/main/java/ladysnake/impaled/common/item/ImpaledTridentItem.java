@@ -2,6 +2,7 @@ package ladysnake.impaled.common.item;
 
 import ladysnake.impaled.common.entity.ImpaledTridentEntity;
 import ladysnake.sincereloyalty.LoyalTrident;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -22,6 +23,9 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+
+import static ladysnake.impaled.common.compat.ImpaledCompat.backslotActive;
+import static ladysnake.impaled.common.compat.ImpaledCompat.decrementImpaledTridentStack;
 
 public class ImpaledTridentItem extends TridentItem {
     EntityType<? extends ImpaledTridentEntity> type;
@@ -45,8 +49,11 @@ public class ImpaledTridentItem extends TridentItem {
                     if (!world.isClient) {
                         stack.damage(1, player, livingEntity -> livingEntity.sendToolBreakStatus(user.getActiveHand()));
                         if (j == 0) {
-                            ImpaledTridentEntity trident = createTrident(world, player, stack);
-                            LoyalTrident.of(trident).loyaltrident_setReturnSlot(player.getActiveHand() == Hand.OFF_HAND ? -1 : player.getInventory().selectedSlot);
+                            ImpaledTridentEntity trident = createTrident(world, player, stack.copy());
+                            if (FabricLoader.getInstance().isModLoaded("arsenal") && backslotActive(player))
+                                LoyalTrident.of(trident).loyaltrident_setReturnSlot(-2);
+                            else
+                                LoyalTrident.of(trident).loyaltrident_setReturnSlot(player.getActiveHand() == Hand.OFF_HAND ? -1 : player.getInventory().selectedSlot);
 
                             if (player.getAbilities().creativeMode) {
                                 trident.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
@@ -54,6 +61,7 @@ public class ImpaledTridentItem extends TridentItem {
 
                             world.spawnEntity(trident);
                             world.playSoundFromEntity(null, trident, SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                            decrementImpaledTridentStack(player, stack, trident);
                             if (!player.getAbilities().creativeMode) {
                                 player.getInventory().removeOne(stack);
                             }
@@ -100,8 +108,8 @@ public class ImpaledTridentItem extends TridentItem {
 
     public @NotNull ImpaledTridentEntity createTrident(World world, LivingEntity user, ItemStack stack) {
         ImpaledTridentEntity impaledTridentEntity = Objects.requireNonNull(this.type.create(world));
-        impaledTridentEntity.setTridentAttributes(stack);
         impaledTridentEntity.setOwner(user);
+        impaledTridentEntity.setTridentAttributes(stack);
         impaledTridentEntity.setTridentStack(stack);
         impaledTridentEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 2.5F, 1.0F);
         impaledTridentEntity.updatePosition(user.getX(), user.getEyeY() - 0.1, user.getZ());
