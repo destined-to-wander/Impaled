@@ -18,7 +18,7 @@ public class EnchantmentTargetMixin {
     public EnchantmentTarget target;
 
     @Inject(method = "isAcceptableItem", at = @At(value = "RETURN"), cancellable = true)
-    public void isAcceptableItem(ItemStack itemStack, CallbackInfoReturnable<Boolean> cir) {
+    public void modifyAcceptableItem(ItemStack itemStack, CallbackInfoReturnable<Boolean> cir) {
         if (!cir.getReturnValue() && itemStack.getItem() instanceof AtlanItem && this.target == EnchantmentTarget.WEAPON) {
             cir.setReturnValue(true);
         }

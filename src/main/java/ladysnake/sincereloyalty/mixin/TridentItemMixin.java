@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import static ladysnake.impaled.common.compat.ImpaledCompat.backslotActive;
+import static ladysnake.impaled.common.compat.ArsenalCompat.backslotActive;
 
 
 @Mixin(TridentItem.class)

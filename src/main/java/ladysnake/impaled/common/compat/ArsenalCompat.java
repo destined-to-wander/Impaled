@@ -5,19 +5,12 @@ import dev.doctor4t.arsenal.cca.BackWeaponComponent;
 import dev.doctor4t.arsenal.util.ProjectileSlotHolder;
 import dev.doctor4t.arsenal.util.WeaponSlotHolder;
 import ladysnake.impaled.common.item.ImpaledTridentItem;
-import moriyashiine.enchancement.common.component.entity.LeechComponent;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 
-public class ImpaledCompat {
-    public static void tryApplyLeech(LivingEntity livingEntity, ItemStack stack, PersistentProjectileEntity trident){
-        LeechComponent.maybeSet(livingEntity, stack, trident);
-    }
-
+public class ArsenalCompat {
     public static void decrementImpaledTridentStack(PlayerEntity player, ItemStack stack, Entity entity) {
         if (!FabricLoader.getInstance().isModLoaded("arsenal")) return;
         BackWeaponComponent backWeaponComponent = ArsenalComponents.BACK_WEAPON_COMPONENT.get(player);

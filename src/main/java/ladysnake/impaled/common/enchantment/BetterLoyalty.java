@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 
-import static ladysnake.impaled.common.compat.ImpaledCompat.tryInsertIntoBackslot;
+import static ladysnake.impaled.common.compat.ArsenalCompat.tryInsertIntoBackslot;
 
 public final class BetterLoyalty {
     public static boolean tryInsertTrident(ItemStack stack, PlayerEntity player) {

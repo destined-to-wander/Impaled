@@ -1,6 +1,6 @@
 package ladysnake.impaled.common.entity;
 
-import ladysnake.impaled.common.compat.ImpaledCompat;
+import ladysnake.impaled.common.compat.EnchancementCompat;
 import ladysnake.impaled.mixin.TridentEntityAccessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -19,7 +19,7 @@ public class ImpaledTridentEntity extends TridentEntity {
         this.setTridentStack(stack.copy());
 
         if (FabricLoader.getInstance().isModLoaded("enchancement") && this.getOwner() instanceof LivingEntity livingEntity)
-            ImpaledCompat.tryApplyLeech(livingEntity, stack, this);
+            EnchancementCompat.addTridentComponents(livingEntity, stack, this);
 
         this.dataTracker.set(TridentEntityAccessor.impaled$getLoyalty(), (byte) EnchantmentHelper.getLoyalty(stack));
         this.dataTracker.set(TridentEntityAccessor.impaled$getEnchanted(), stack.hasGlint());

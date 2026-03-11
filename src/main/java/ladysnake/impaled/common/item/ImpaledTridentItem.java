@@ -24,8 +24,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static ladysnake.impaled.common.compat.ImpaledCompat.backslotActive;
-import static ladysnake.impaled.common.compat.ImpaledCompat.decrementImpaledTridentStack;
+import static ladysnake.impaled.common.compat.ArsenalCompat.backslotActive;
+import static ladysnake.impaled.common.compat.ArsenalCompat.decrementImpaledTridentStack;
 
 public class ImpaledTridentItem extends TridentItem {
     EntityType<? extends ImpaledTridentEntity> type;
